@@ -1,0 +1,28 @@
+[project]
+name = "nerf-attention"
+version = "0.1.0"
+description = "SIREN-based compression of LLM KV cache: a characterization study"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.1.0",
+    "numpy",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+llm = [
+    "transformers",
+    "accelerate",
+    "bitsandbytes",
+]
+
+[project.scripts]
+quickstart = "quickstart:main"
+extract = "nerf_attention.extract:main"
+analyze = "nerf_attention.analyze:main"
+fit = "nerf_attention.fit:main"
+evaluate = "nerf_attention.evaluate:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
