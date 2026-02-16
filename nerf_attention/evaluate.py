@@ -134,7 +134,7 @@ def plot_per_position_error(
 
         with torch.no_grad():
             pred = model(positions) * checkpoint['target_std'].to(device) + checkpoint['target_mean'].to(device)
-            per_pos_cos = torch.nn.functional.cosine_similarity(pred, original, dim=1).numpy()
+            per_pos_cos = torch.nn.functional.cosine_similarity(pred, original, dim=1).cpu().numpy()
 
         ax.plot(range(seq_len), per_pos_cos, alpha=0.5, linewidth=0.5)
         window = min(50, seq_len // 10)

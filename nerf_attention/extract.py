@@ -129,8 +129,17 @@ def extract_kv_cache(
         outputs = model(**inputs, output_hidden_states=False, use_cache=True)
 
     past_kv = outputs.past_key_values
-    num_layers = len(past_kv)
-    _, num_kv_heads, cache_seq_len, head_dim = past_kv[0][0].shape
+
+    # Handle DynamicCache (transformers v5+) vs legacy tuple format
+    if hasattr(past_kv, 'layers'):
+        num_layers = len(past_kv.layers)
+        _, num_kv_heads, cache_seq_len, head_dim = past_kv.layers[0].keys.shape
+    elif hasattr(past_kv, 'key_cache'):
+        num_layers = len(past_kv.key_cache)
+        _, num_kv_heads, cache_seq_len, head_dim = past_kv.key_cache[0].shape
+    else:
+        num_layers = len(past_kv)
+        _, num_kv_heads, cache_seq_len, head_dim = past_kv[0][0].shape
 
     print(f"KV cache: {num_layers} layers, {num_kv_heads} heads, "
           f"seq_len={cache_seq_len}, head_dim={head_dim}")
@@ -138,8 +147,15 @@ def extract_kv_cache(
     output_dir.mkdir(parents=True, exist_ok=True)
 
     for layer_idx in range(num_layers):
-        keys = past_kv[layer_idx][0].squeeze(0).float().cpu()
-        values = past_kv[layer_idx][1].squeeze(0).float().cpu()
+        if hasattr(past_kv, 'layers'):
+            keys = past_kv.layers[layer_idx].keys.squeeze(0).float().cpu()
+            values = past_kv.layers[layer_idx].values.squeeze(0).float().cpu()
+        elif hasattr(past_kv, 'key_cache'):
+            keys = past_kv.key_cache[layer_idx].squeeze(0).float().cpu()
+            values = past_kv.value_cache[layer_idx].squeeze(0).float().cpu()
+        else:
+            keys = past_kv[layer_idx][0].squeeze(0).float().cpu()
+            values = past_kv[layer_idx][1].squeeze(0).float().cpu()
         torch.save(
             {'keys': keys, 'values': values},
             output_dir / f'layer_{layer_idx:02d}.pt',
