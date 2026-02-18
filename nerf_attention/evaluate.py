@@ -45,26 +45,42 @@ def _load_model_from_checkpoint(checkpoint: dict, device: str) -> SIREN:
     return model
 
 
-def plot_pareto_frontier(results: list[dict], output_dir: Path) -> None:
+def plot_pareto_frontier(
+    results: list[dict], output_dir: Path, svd_results: list[dict] | None = None,
+) -> None:
     output_dir = Path(output_dir)
     fig, ax = plt.subplots(figsize=(10, 7))
 
-    for cn in set(r['config_name'] for r in results):
+    for cn in sorted(set(r['config_name'] for r in results)):
         cr = [r for r in results if r['config_name'] == cn]
         ax.scatter(
             [r['compression_ratio'] for r in cr],
             [r['final_cosine_mean'] for r in cr],
             c=CONFIG_COLORS.get(cn, '#95a5a6'),
             marker=CONFIG_MARKERS.get(cn, 'o'),
-            s=80, alpha=0.7, label=cn, edgecolors='black', linewidth=0.5,
+            s=80, alpha=0.7, label=f'SIREN {cn}', edgecolors='black', linewidth=0.5,
         )
+
+    if svd_results:
+        svd_keys = [r for r in svd_results if r['kv_type'] == 'key']
+        svd_vals = [r for r in svd_results if r['kv_type'] == 'value']
+        if svd_keys:
+            ax.scatter([r['actual_compression'] for r in svd_keys],
+                       [r['final_cosine_mean'] for r in svd_keys],
+                       c='black', marker='D', s=100, alpha=0.8, label='SVD (keys)',
+                       edgecolors='black', linewidth=0.5, zorder=6)
+        if svd_vals:
+            ax.scatter([r['actual_compression'] for r in svd_vals],
+                       [r['final_cosine_mean'] for r in svd_vals],
+                       c='gray', marker='D', s=100, alpha=0.8, label='SVD (values)',
+                       edgecolors='black', linewidth=0.5, zorder=6)
 
     ax.axhline(y=0.95, color='green', linestyle='--', alpha=0.4, label='0.95 target')
     ax.axhline(y=0.90, color='orange', linestyle='--', alpha=0.4, label='0.90 minimum')
     ax.set(xlabel='Compression Ratio (x)', ylabel='Cosine Similarity',
-           title='SIREN KV Cache Compression: Fidelity vs Compression')
+           title='SIREN vs SVD: Compression-Fidelity Tradeoff')
     ax.set_xscale('log')
-    ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=9)
     ax.grid(True, alpha=0.3)
 
     plt.tight_layout()
