@@ -282,11 +282,28 @@ def generate_summary_figure(results: list[dict], output_dir: Path) -> None:
         ax.set(xlabel='Layer Index', ylabel='Avg Cosine Similarity', title='Compressibility by Layer')
         ax.grid(True, alpha=0.2)
 
-    # Training curves placeholder
+    # K/V split per architecture
     ax = fig.add_subplot(gs[1, 0])
-    ax.text(0.5, 0.5, 'Training curves\n(from fit logs)', ha='center', va='center',
-            transform=ax.transAxes, fontsize=10)
-    ax.set_title('Training Convergence')
+    config_k: dict[str, list[float]] = {}
+    config_v: dict[str, list[float]] = {}
+    for r in results:
+        cn = r['config_name']
+        if r['kv_type'] == 'key':
+            config_k.setdefault(cn, []).append(r['final_cosine_mean'])
+        else:
+            config_v.setdefault(cn, []).append(r['final_cosine_mean'])
+    cfgs = sorted(set(list(config_k.keys()) + list(config_v.keys())))
+    if cfgs:
+        x = np.arange(len(cfgs))
+        width = 0.35
+        ax.bar(x - width/2, [np.mean(config_k.get(c, [0])) for c in cfgs],
+               width, label='Keys', color='#3498db', alpha=0.8)
+        ax.bar(x + width/2, [np.mean(config_v.get(c, [0])) for c in cfgs],
+               width, label='Values', color='#e74c3c', alpha=0.8)
+        ax.set_xticks(x)
+        ax.set_xticklabels(cfgs, fontsize=7, rotation=45, ha='right')
+        ax.set(ylabel='Avg CosSim', title='K/V Gap by Architecture')
+        ax.legend(fontsize=7); ax.grid(True, alpha=0.2, axis='y')
 
     # Architecture comparison
     ax = fig.add_subplot(gs[1, 1])
