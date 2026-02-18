@@ -1,0 +1,62 @@
+{
+  "512": {
+    "seq_len": 512,
+    "actual_tokens": 512,
+    "autocorr_keys": 0.44574845165034277,
+    "autocorr_values": 0.250788629877934,
+    "spectral_keys": 0.381432146122097,
+    "spectral_values": 0.22194131773430853,
+    "avg_cossim_keys": 0.9745816389719645,
+    "avg_cossim_values": 0.9196205139160156,
+    "avg_compression": 0.39720713731574864,
+    "siren_time_ms": 0.05999947497912217,
+    "hbm_4060_ms": 0.0009637647058823529,
+    "hbm_h100_ms": 7.825194029850745e-05,
+    "num_experiments": 6
+  },
+  "1024": {
+    "seq_len": 1024,
+    "actual_tokens": 1024,
+    "autocorr_keys": 0.4680839014479716,
+    "autocorr_values": 0.23765579717583024,
+    "spectral_keys": 0.4156166303655482,
+    "spectral_values": 0.2279700165730901,
+    "avg_cossim_keys": 0.9433811902999878,
+    "avg_cossim_values": 0.7440699140230814,
+    "avg_compression": 0.7944142746314973,
+    "siren_time_ms": 0.09108651749556884,
+    "hbm_4060_ms": 0.0019275294117647058,
+    "hbm_h100_ms": 0.0001565038805970149,
+    "num_experiments": 6
+  },
+  "2048": {
+    "seq_len": 2048,
+    "actual_tokens": 2048,
+    "autocorr_keys": 0.4882270460129803,
+    "autocorr_values": 0.22310295753013634,
+    "spectral_keys": 0.44090321824114653,
+    "spectral_values": 0.22175691464217379,
+    "avg_cossim_keys": 0.8996829390525818,
+    "avg_cossim_values": 0.6359248558680216,
+    "avg_compression": 1.5888285492629945,
+    "siren_time_ms": 0.15213286991638597,
+    "hbm_4060_ms": 0.0038550588235294115,
+    "hbm_h100_ms": 0.0003130077611940298,
+    "num_experiments": 6
+  },
+  "4096": {
+    "seq_len": 4096,
+    "actual_tokens": 4096,
+    "autocorr_keys": 0.5213117603270803,
+    "autocorr_values": 0.24931706005409068,
+    "spectral_keys": 0.47324362503859446,
+    "spectral_values": 0.25437684622593226,
+    "avg_cossim_keys": 0.8764639298121134,
+    "avg_cossim_values": 0.5127713779608408,
+    "avg_compression": 3.177657098525989,
+    "siren_time_ms": 0.2914246324507985,
+    "hbm_4060_ms": 0.007710117647058823,
+    "hbm_h100_ms": 0.0006260155223880596,
+    "num_experiments": 6
+  }
+}

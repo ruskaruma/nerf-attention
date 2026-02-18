@@ -1,0 +1,13 @@
+{
+  "siren_fit_log_slope": 0.7580325597885034,
+  "siren_fit_log_intercept": -0.29991293503221955,
+  "siren_scaling": "time_us ~ n^0.758",
+  "hbm_scaling": "time_us ~ n^1.0 (linear)",
+  "latency_ratio_range": [
+    37.79768945055828,
+    62.25531461456769
+  ],
+  "crossover_4060_tokens": 10558563915.18424,
+  "crossover_h100_tokens": 339086093288049.25,
+  "note": "Crossover at billions of tokens \u2014 effectively never at practical lengths"
+}

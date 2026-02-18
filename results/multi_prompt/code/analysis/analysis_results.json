@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "model_name": "unsloth/Llama-3.1-8B",
+    "num_layers": 32,
+    "num_kv_heads": 8,
+    "seq_len": 2048,
+    "head_dim": 128,
+    "actual_tokens": 2048,
+    "dtype": "float32"
+  },
+  "layer_summaries": [
+    {
+      "layer": 0,
+      "avg_autocorr_k": 0.2971626767748603,
+      "avg_autocorr_v": -0.005546071926801233,
+      "avg_energy_10pct_k": 0.34448796803189907,
+      "avg_energy_10pct_v": 0.10805463790893555,
+      "avg_rank_ratio_k": 0.822265625,
+      "avg_rank_ratio_v": 0.953125
+    },
+    {
+      "layer": 8,
+      "avg_autocorr_k": 0.5442302338778973,
+      "avg_autocorr_v": 0.3244398199021816,
+      "avg_energy_10pct_k": 0.47418684158765245,
+      "avg_energy_10pct_v": 0.2938543825875968,
+      "avg_rank_ratio_k": 0.96875,
+      "avg_rank_ratio_v": 0.974609375
+    },
+    {
+      "layer": 16,
+      "avg_autocorr_k": 0.5796510563232005,
+      "avg_autocorr_v": 0.35252505051903427,
+      "avg_energy_10pct_k": 0.4958434247528203,
+      "avg_energy_10pct_v": 0.3025392545387149,
+      "avg_rank_ratio_k": 0.966796875,
+      "avg_rank_ratio_v": 0.978515625
+    },
+    {
+      "layer": 24,
+      "avg_autocorr_k": 0.5092129233526066,
+      "avg_autocorr_v": 0.26885512692388147,
+      "avg_energy_10pct_k": 0.42951718004769646,
+      "avg_energy_10pct_v": 0.25265388295520097,
+      "avg_rank_ratio_k": 0.96484375,
+      "avg_rank_ratio_v": 0.982421875
+    },
+    {
+      "layer": 31,
+      "avg_autocorr_k": 0.51637060882058,
+      "avg_autocorr_v": 0.20580160613462795,
+      "avg_energy_10pct_k": 0.442298051668331,
+      "avg_energy_10pct_v": 0.22626760066486895,
+      "avg_rank_ratio_k": 0.953125,
+      "avg_rank_ratio_v": 0.97265625
+    }
+  ],
+  "assessment": {
+    "avg_autocorr_keys": 0.4893254998298289,
+    "avg_autocorr_values": 0.2292151063105848,
+    "avg_spectral_keys": 0.43726669321767986,
+    "avg_spectral_values": 0.23667395173106343
+  }
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "name": "L0_H0_key_medium",
+    "config": "medium",
+    "siren_time_ms": 2.742820339917671,
+    "hbm_time_4060_ms": 0.0038550588235294115,
+    "hbm_time_h100_ms": 0.0003130077611940298,
+    "speedup_vs_4060": 0.0014055090548311764,
+    "speedup_vs_h100": 0.00011411894415345672,
+    "num_params": 164992
+  },
+  {
+    "name": "L0_H0_value_medium",
+    "config": "medium",
+    "siren_time_ms": 3.1123581202700734,
+    "hbm_time_4060_ms": 0.0038550588235294115,
+    "hbm_time_h100_ms": 0.0003130077611940298,
+    "speedup_vs_4060": 0.0012386295774969786,
+    "speedup_vs_h100": 0.00010056932688930692,
+    "num_params": 164992
+  },
+  {
+    "name": "L0_H1_key_medium",
+    "config": "medium",
+    "siren_time_ms": 3.1196283298777416,
+    "hbm_time_4060_ms": 0.0038550588235294115,
+    "hbm_time_h100_ms": 0.0003130077611940298,
+    "speedup_vs_4060": 0.0012357429847037233,
+    "speedup_vs_h100": 0.00010033495278788439,
+    "num_params": 164992
+  },
+  {
+    "name": "L0_H1_value_medium",
+    "config": "medium",
+    "siren_time_ms": 3.125722830009181,
+    "hbm_time_4060_ms": 0.0038550588235294115,
+    "hbm_time_h100_ms": 0.0003130077611940298,
+    "speedup_vs_4060": 0.0012333335465697988,
+    "speedup_vs_h100": 0.000100139320796115,
+    "num_params": 164992
+  },
+  {
+    "name": "L0_H2_key_medium",
+    "config": "medium",
+    "siren_time_ms": 3.1051403301535174,
+    "hbm_time_4060_ms": 0.0038550588235294115,
+    "hbm_time_h100_ms": 0.0003130077611940298,
+    "speedup_vs_4060": 0.0012415087286373361,
+    "speedup_vs_h100": 0.00010080309677294192,
+    "num_params": 164992
+  },
+  {
+    "name": "L0_H2_value_medium",
+    "config": "medium",
+    "siren_time_ms": 3.0114200100069866,
+    "hbm_time_4060_ms": 0.0038550588235294115,
+    "hbm_time_h100_ms": 0.0003130077611940298,
+    "speedup_vs_4060": 0.0012801465125153592,
+    "speedup_vs_h100": 0.0001039402541505008,
+    "num_params": 164992
+  },
+  {
+    "name": "L0_H3_key_medium",
+    "config": "medium",
+    "siren_time_ms": 3.107067770033609,
+    "hbm_time_4060_ms": 0.0038550588235294115,
+    "hbm_time_h100_ms": 0.0003130077611940298,
+    "speedup_vs_4060": 0.001240738570529381,
+    "speedup_vs_h100": 0.00010074056453253482,
+    "num_params": 164992
+  },
+  {
+    "name": "L0_H3_value_medium",
+    "config": "medium",
+    "siren_time_ms": 3.225951000058558,
+    "hbm_time_4060_ms": 0.0038550588235294115,
+    "hbm_time_h100_ms": 0.0003130077611940298,
+    "speedup_vs_4060": 0.0011950146866643151,
+    "speedup_vs_h100": 9.70280581411026e-05,
+    "num_params": 164992
+  }
+]

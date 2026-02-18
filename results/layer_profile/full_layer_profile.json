@@ -1,0 +1,386 @@
+[
+  {
+    "layer": 0,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8683627843856812,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 0,
+    "kv_type": "value",
+    "final_cosine_mean": 0.4829057455062866,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 1,
+    "kv_type": "key",
+    "final_cosine_mean": 0.899825930595398,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 1,
+    "kv_type": "value",
+    "final_cosine_mean": 0.5541439652442932,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 2,
+    "kv_type": "key",
+    "final_cosine_mean": 0.882880449295044,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 2,
+    "kv_type": "value",
+    "final_cosine_mean": 0.5341101884841919,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 3,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9231833219528198,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 3,
+    "kv_type": "value",
+    "final_cosine_mean": 0.588232159614563,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 4,
+    "kv_type": "key",
+    "final_cosine_mean": 0.907060980796814,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 4,
+    "kv_type": "value",
+    "final_cosine_mean": 0.634475588798523,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 5,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9182819128036499,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 5,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6334367394447327,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 6,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9145801067352295,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 6,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6554226875305176,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 7,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9098386168479919,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 7,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6917834281921387,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 8,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8961403369903564,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 8,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6998969316482544,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 9,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8514775037765503,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 9,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6656063199043274,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 10,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8699283003807068,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 10,
+    "kv_type": "value",
+    "final_cosine_mean": 0.7527837157249451,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 11,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8749840259552002,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 11,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6759607791900635,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 12,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9123339056968689,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 12,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6805039644241333,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 13,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8456413745880127,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 13,
+    "kv_type": "value",
+    "final_cosine_mean": 0.7317754030227661,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 14,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8794718980789185,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 14,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6519752740859985,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 15,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9004781246185303,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 15,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6143284440040588,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 16,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9142415523529053,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 16,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6312503814697266,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 17,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8889099359512329,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 17,
+    "kv_type": "value",
+    "final_cosine_mean": 0.7575296759605408,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 18,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9023042917251587,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 18,
+    "kv_type": "value",
+    "final_cosine_mean": 0.7383613586425781,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 19,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8914893865585327,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 19,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6509010195732117,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 20,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8712726831436157,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 20,
+    "kv_type": "value",
+    "final_cosine_mean": 0.5677767395973206,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 21,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8772293329238892,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 21,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6010022163391113,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 22,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8820875883102417,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 22,
+    "kv_type": "value",
+    "final_cosine_mean": 0.5550113916397095,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 23,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9350011348724365,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 23,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6898434162139893,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 24,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9210237264633179,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 24,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6791993379592896,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 25,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9218322038650513,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 25,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6494656801223755,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 26,
+    "kv_type": "key",
+    "final_cosine_mean": 0.902149498462677,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 26,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6939748525619507,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 27,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9039343595504761,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 27,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6095353364944458,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 28,
+    "kv_type": "key",
+    "final_cosine_mean": 0.907649576663971,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 28,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6496630311012268,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 29,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9052935838699341,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 29,
+    "kv_type": "value",
+    "final_cosine_mean": 0.6308509707450867,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 30,
+    "kv_type": "key",
+    "final_cosine_mean": 0.8853658437728882,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 30,
+    "kv_type": "value",
+    "final_cosine_mean": 0.616852879524231,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 31,
+    "kv_type": "key",
+    "final_cosine_mean": 0.9115788340568542,
+    "compression_ratio": 1.5888285492629945
+  },
+  {
+    "layer": 31,
+    "kv_type": "value",
+    "final_cosine_mean": 0.7045413255691528,
+    "compression_ratio": 1.5888285492629945
+  }
+]

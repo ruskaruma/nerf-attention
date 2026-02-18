@@ -1,0 +1,46 @@
+{
+  "fiction": {
+    "actual_tokens": 2048,
+    "autocorr_keys": 0.4882270460129803,
+    "autocorr_values": 0.22310295753013634,
+    "spectral_keys": 0.44090321824114653,
+    "spectral_values": 0.22175691464217379,
+    "avg_cossim_keys": 0.9094771146774292,
+    "avg_cossim_values": 0.6504116555054983,
+    "std_cossim_keys": 0.01925043910821773,
+    "std_cossim_values": 0.1344488209114481
+  },
+  "code": {
+    "actual_tokens": 2048,
+    "autocorr_keys": 0.4893254998298289,
+    "autocorr_values": 0.2292151063105848,
+    "spectral_keys": 0.43726669321767986,
+    "spectral_values": 0.23667395173106343,
+    "avg_cossim_keys": 0.9103984534740448,
+    "avg_cossim_values": 0.6399717579285303,
+    "std_cossim_keys": 0.018314597765209505,
+    "std_cossim_values": 0.14111699578253054
+  },
+  "conversational": {
+    "actual_tokens": 2048,
+    "autocorr_keys": 0.4856893853924703,
+    "autocorr_values": 0.21968126947786004,
+    "spectral_keys": 0.4285609780912637,
+    "spectral_values": 0.2182784428121522,
+    "avg_cossim_keys": 0.9043284753958384,
+    "avg_cossim_values": 0.6245211164156595,
+    "std_cossim_keys": 0.0197161452456108,
+    "std_cossim_values": 0.1379879087417114
+  },
+  "technical": {
+    "actual_tokens": 2048,
+    "autocorr_keys": 0.47966644674670533,
+    "autocorr_values": 0.2243595695496879,
+    "spectral_keys": 0.4379486318677664,
+    "spectral_values": 0.23520668753189966,
+    "avg_cossim_keys": 0.9077900648117065,
+    "avg_cossim_values": 0.6275112678607305,
+    "std_cossim_keys": 0.018212126415181638,
+    "std_cossim_values": 0.1369213321273263
+  }
+}
