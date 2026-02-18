@@ -1,6 +1,17 @@
-# Experiment outputs
-results/
+# Raw tensors and model weights (too large for git)
 *.pt
+
+# Experiment outputs — ignore bulk data, keep figures and metrics
+results/kv_cache/
+results/kv_cache_quick/
+results/analysis_quick/
+results/fits_quick/
+results/figures_quick/
+results/scaling/*/kv_cache/
+results/multi_prompt/*/kv_cache/
+
+# Allow figures and JSON metrics to be committed
+# (results/figures/*.png and results/**/*.json are tracked)
 
 # Python
 __pycache__/
