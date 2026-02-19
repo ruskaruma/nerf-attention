@@ -28,6 +28,7 @@ class SineLayer(nn.Module):
             else:
                 bound = math.sqrt(6.0 / in_features) / omega_0
             self.linear.weight.uniform_(-bound, bound)
+            self.linear.bias.uniform_(-bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return torch.sin(self.omega_0 * self.linear(x))
@@ -51,6 +52,7 @@ class SIREN(nn.Module):
         with torch.no_grad():
             bound = math.sqrt(6.0 / config.hidden_features) / config.omega_0
             final.weight.uniform_(-bound, bound)
+            final.bias.uniform_(-bound, bound)
         layers.append(final)
 
         self.network = nn.Sequential(*layers)
@@ -62,7 +64,7 @@ class SIREN(nn.Module):
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
     def size_bytes(self) -> int:
-        return self.count_parameters() * 4
+        return self.count_parameters() * 4  # SIREN params are float32
 
 
 def fit_siren(
@@ -81,7 +83,7 @@ def fit_siren(
     targets = kv_tensor.to(device)
 
     target_mean = targets.mean(dim=0, keepdim=True)
-    target_std = targets.std(dim=0, keepdim=True).clamp(min=1e-8)
+    target_std = targets.std(dim=0, keepdim=True).clamp(min=1e-3)
     targets_norm = (targets - target_mean) / target_std
 
     model = SIREN(config, out_features=d_head).to(device)
@@ -122,7 +124,7 @@ def fit_siren(
         cosine_sims = F.cosine_similarity(pred_real, targets, dim=1)
         per_pos_mse = ((pred_real - targets) ** 2).mean(dim=1)
 
-    raw_size = seq_len * d_head * 4
+    raw_size = seq_len * d_head * 2  # KV cache is float16 in the model
     siren_size = model.size_bytes()
 
     return FitResult(

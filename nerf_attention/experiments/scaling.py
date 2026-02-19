@@ -109,7 +109,7 @@ def _extract_all_seq_lengths(
             torch.cuda.empty_cache()
 
         except (RuntimeError, ValueError) as e:
-            if 'out of memory' in str(e).lower() or 'cuda' in str(e).lower() or 'gpu ram' in str(e).lower():
+            if 'out of memory' in str(e).lower():
                 print(f"    OOM at seq_len={seq_len}, stopping extraction")
                 torch.cuda.empty_cache()
                 break
@@ -179,12 +179,17 @@ def run_scaling_experiment(
                                'name': medium_config.name,
                                'out_features': tensor.shape[1]},
                     'model_state': result.model.state_dict(),
+                    'target_mean': result.target_mean,
+                    'target_std': result.target_std,
+                    'metrics': {'name': name, 'config_name': medium_config.name,
+                                'seq_len': metadata.seq_len,
+                                'raw_size_bytes': result.raw_size_bytes},
                 }, fits_dir / f'{name}_model.pt')
                 print(f"    CosSim={result.final_cosine_mean:.4f}, Compress={result.compression_ratio:.1f}x")
 
         siren_time_ms = _profile_siren_latency(fits_dir, metadata.seq_len, device)
 
-        raw_bytes = metadata.seq_len * metadata.head_dim * 4
+        raw_bytes = metadata.seq_len * metadata.head_dim * 2  # KV cache is float16
         hbm_4060_ms = raw_bytes / 272e9 * 1000
         hbm_h100_ms = raw_bytes / 3350e9 * 1000
 
@@ -262,7 +267,7 @@ def plot_scaling_crossover(
     output_dir: Path,
     head_dim: int = 128,
 ) -> None:
-    """Both SIREN and HBM scale with sequence length. SIREN is 38-62x slower."""
+    """Both SIREN and HBM scale with sequence length. SIREN is 76-125x slower."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -277,8 +282,8 @@ def plot_scaling_crossover(
     siren_fit = np.polyfit(log_sl, np.log10(siren_us), 1)  # [slope, intercept]
 
     # HBM theoretical: raw_bytes / peak_bandwidth
-    hbm4060_per_token = head_dim * 4 / 272e9 * 1e6  # us per token
-    hbm_h100_per_token = head_dim * 4 / 3350e9 * 1e6
+    hbm4060_per_token = head_dim * 2 / 272e9 * 1e6  # us per token (float16 KV cache)
+    hbm_h100_per_token = head_dim * 2 / 3350e9 * 1e6
 
     # Analytical crossover: n^a * 10^b = n * c => n = (c/10^b)^(1/(a-1))
     a, b = siren_fit
@@ -320,7 +325,7 @@ def plot_scaling_crossover(
     ax.set_xscale('log')
     ax.set_yscale('log')
     ax.set(xlabel='Sequence Length (tokens)', ylabel='Time (microseconds)',
-           title='SIREN Is 38-62x Slower Than HBM Reads at All Practical Lengths')
+           title=f'SIREN Is {min(ratios):.0f}-{max(ratios):.0f}x Slower Than HBM Reads at All Practical Lengths')
     ax.legend(fontsize=9, loc='upper left')
     ax.grid(True, alpha=0.3, which='both')
 
@@ -438,22 +443,24 @@ def plot_full_layer_profile(results: list[dict], output_dir: Path) -> None:
 
     ax.axhline(y=0.95, color='green', linestyle='--', alpha=0.3, label='0.95 target')
 
-    # Annotate key dips
-    key_dict = dict(zip(key_layers, key_cossim))
-    for layer, label in [(9, 'L9'), (13, 'L13'), (20, 'L20')]:
-        if layer in key_dict:
-            ax.annotate(f'{label}\n{key_dict[layer]:.3f}',
-                        xy=(layer, key_dict[layer]), fontsize=8, color='#3498db',
-                        xytext=(layer + 1.5, key_dict[layer] - 0.03),
+    # Annotate key dips (local minima)
+    key_arr = np.array(key_cossim)
+    for i in range(1, len(key_arr) - 1):
+        if key_arr[i] < key_arr[i-1] and key_arr[i] < key_arr[i+1]:
+            layer = key_layers[i]
+            ax.annotate(f'L{layer}\n{key_arr[i]:.3f}',
+                        xy=(layer, key_arr[i]), fontsize=8, color='#3498db',
+                        xytext=(layer + 1.5, key_arr[i] - 0.03),
                         arrowprops=dict(arrowstyle='->', color='#3498db', alpha=0.7))
 
-    # Annotate value peak
-    val_dict = dict(zip(val_layers, val_cossim))
-    if 17 in val_dict:
-        ax.annotate(f'L17 peak\n{val_dict[17]:.3f}',
-                    xy=(17, val_dict[17]), fontsize=8, color='#e74c3c',
-                    xytext=(19, val_dict[17] + 0.04),
-                    arrowprops=dict(arrowstyle='->', color='#e74c3c', alpha=0.7))
+    # Annotate value peak (global max)
+    val_arr = np.array(val_cossim)
+    peak_idx = int(np.argmax(val_arr))
+    peak_layer = val_layers[peak_idx]
+    ax.annotate(f'L{peak_layer} peak\n{val_arr[peak_idx]:.3f}',
+                xy=(peak_layer, val_arr[peak_idx]), fontsize=8, color='#e74c3c',
+                xytext=(peak_layer + 2, val_arr[peak_idx] + 0.04),
+                arrowprops=dict(arrowstyle='->', color='#e74c3c', alpha=0.7))
 
     ax.set(xlabel='Layer Index', ylabel='Cosine Similarity (medium SIREN)',
            title='All 32 Layers: Non-Monotonic Key Dips, Mid-Layer Value Peak')

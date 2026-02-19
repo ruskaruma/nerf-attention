@@ -93,11 +93,19 @@ def main() -> None:
         print("\n" + "=" * 60)
         print("FINAL SUMMARY")
         print("=" * 60)
-        scaling_data = json.loads((Path('results/scaling') / 'scaling_results.json').read_text())
-        scaling_data = {int(k): v for k, v in scaling_data.items()}
-        prompt_data = json.loads((Path('results/multi_prompt') / 'multi_prompt_results.json').read_text())
-        svd_data = json.loads((Path('results/svd') / 'svd_results.json').read_text())
-        siren_data = json.loads((Path(args.siren_dir) / 'fit_results.json').read_text())
+
+        def _load_json(path: Path):
+            if path.exists():
+                return json.loads(path.read_text())
+            print(f"  Warning: {path} not found, skipping")
+            return None
+
+        scaling_data = _load_json(Path('results/scaling') / 'scaling_results.json')
+        if scaling_data:
+            scaling_data = {int(k): v for k, v in scaling_data.items()}
+        prompt_data = _load_json(Path('results/multi_prompt') / 'multi_prompt_results.json')
+        svd_data = _load_json(Path('results/svd') / 'svd_results.json')
+        siren_data = _load_json(Path(args.siren_dir) / 'fit_results.json')
         generate_final_summary(scaling_data, prompt_data, siren_data, svd_data, figures_dir)
 
 

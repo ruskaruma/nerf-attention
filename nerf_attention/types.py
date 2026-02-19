@@ -45,7 +45,7 @@ class KVMetadata:
     seq_len: int
     head_dim: int
     actual_tokens: int
-    dtype: str = 'float32'
+    dtype: str = 'float32'  # On-disk dtype (.float() during extraction); KV cache is natively float16
 
     def to_dict(self) -> dict:
         return {

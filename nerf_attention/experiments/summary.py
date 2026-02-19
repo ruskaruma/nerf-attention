@@ -95,12 +95,12 @@ def generate_final_summary(
         ax.plot(k_layers, k_cos, 'o-', color='#3498db', label='Keys', markersize=4, linewidth=1.2)
         ax.plot(v_layers, v_cos, 's-', color='#e74c3c', label='Values', markersize=4, linewidth=1.2)
         ax.fill_between(k_layers, k_cos, v_cos, alpha=0.08, color='gray')
-        # Mark dips
-        kd = dict(zip(k_layers, k_cos))
-        for l in [9, 13, 20]:
-            if l in kd:
-                ax.annotate(f'L{l}', xy=(l, kd[l]), fontsize=7, color='#3498db',
-                            xytext=(l + 1, kd[l] - 0.02),
+        # Mark key dips (local minima)
+        k_arr = np.array(k_cos)
+        for i in range(1, len(k_arr) - 1):
+            if k_arr[i] < k_arr[i-1] and k_arr[i] < k_arr[i+1]:
+                ax.annotate(f'L{k_layers[i]}', xy=(k_layers[i], k_arr[i]), fontsize=7, color='#3498db',
+                            xytext=(k_layers[i] + 1, k_arr[i] - 0.02),
                             arrowprops=dict(arrowstyle='->', color='#3498db', alpha=0.6, lw=0.8))
         ax.set(xlabel='Layer', ylabel='CosSim',
                title='32-Layer Profile: Non-Monotonic Structure')
@@ -170,11 +170,21 @@ def generate_final_summary(
         v_avg = np.mean([r['final_cosine_mean'] for r in siren_results if r['kv_type'] == 'value'])
         findings += [f"Keys avg:   {k_avg:.4f} CosSim",
                      f"Values avg: {v_avg:.4f} CosSim",
-                     f"K/V gap confirms RoPE asymmetry", ""]
+                     f"K/V gap: architectural, not content", ""]
 
-    if svd_results:
-        findings += ["SVD at 4x > SIREN at 1.6x",
-                     "  (0.92 vs 0.90, zero training)", ""]
+    if svd_results and siren_results:
+        svd_k2 = [r for r in svd_results if r['kv_type'] == 'key' and r.get('target_compression') == 2]
+        siren_k = [r for r in siren_results if r['kv_type'] == 'key' and r.get('config_name') == 'medium']
+        if svd_k2 and siren_k:
+            svd_q = np.mean([r['final_cosine_mean'] for r in svd_k2])
+            sir_q = np.mean([r['final_cosine_mean'] for r in siren_k])
+            sir_ratio = np.mean([r['compression_ratio'] for r in siren_k])
+            ratio_label = f"{sir_ratio:.1f}x"
+            if sir_ratio < 1.0:
+                ratio_label += " = expansion"
+            findings += [f"SVD 2x keys: {svd_q:.2f} CosSim",
+                         f"SIREN keys:  {sir_q:.2f} ({ratio_label})",
+                         "  SVD wins with zero training", ""]
 
     if prompt_results:
         k_vals = [prompt_results[n]['avg_cossim_keys'] for n in prompt_results]

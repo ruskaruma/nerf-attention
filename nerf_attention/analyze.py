@@ -31,7 +31,8 @@ def _autocorrelation(signal: np.ndarray, max_lag: int = 50) -> np.ndarray:
 
 
 def _spectral_energy(signal: np.ndarray) -> dict[str, float]:
-    spectrum = np.abs(np.fft.rfft(signal - signal.mean()))
+    windowed = (signal - signal.mean()) * np.hanning(len(signal))
+    spectrum = np.abs(np.fft.rfft(windowed))
     total = (spectrum ** 2).sum()
     if total < 1e-10:
         return {'top_5pct': 1.0, 'top_10pct': 1.0, 'top_25pct': 1.0, 'top_50pct': 1.0}
@@ -44,7 +45,7 @@ def _spectral_energy(signal: np.ndarray) -> dict[str, float]:
 
 
 def _effective_rank(matrix: torch.Tensor, threshold: float = 0.99) -> dict[str, float]:
-    _, S, _ = torch.svd(matrix)
+    _, S, _ = torch.linalg.svd(matrix)
     total = S.sum()
     cumulative = torch.cumsum(S, dim=0)
     rank = (cumulative < threshold * total).sum().item() + 1

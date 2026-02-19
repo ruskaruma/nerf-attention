@@ -43,7 +43,7 @@ def run_svd_experiment(
         for head_idx in range(min(metadata.num_kv_heads, 4)):
             for kv_type, tensor in [('key', data['keys'][head_idx]), ('value', data['values'][head_idx])]:
                 seq_len, d_head = tensor.shape
-                raw_bytes = seq_len * d_head * 4
+                raw_bytes = seq_len * d_head * 2  # KV cache is float16
 
                 for target_cr in target_compressions:
                     # svd_bytes = (seq_len * rank + rank + rank * d_head) * 4
@@ -92,7 +92,7 @@ def _print_summary(all_results: list[dict], target_compressions: list[float]) ->
     for tc in target_compressions:
         kr = [r for r in key_r if r['target_compression'] == tc]
         vr = [r for r in val_r if r['target_compression'] == tc]
-        if kr:
+        if kr and vr:
             print(f"  {tc:.0f}x: keys CosSim={np.mean([r['final_cosine_mean'] for r in kr]):.4f}, "
                   f"values CosSim={np.mean([r['final_cosine_mean'] for r in vr]):.4f}")
 

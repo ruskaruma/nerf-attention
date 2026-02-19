@@ -33,7 +33,7 @@ def fit_kv_cache(
 
     print(f"KV Cache: {metadata.num_layers} layers x {metadata.num_kv_heads} heads")
     print(f"Per tensor: ({metadata.seq_len}, {metadata.head_dim}) = "
-          f"{metadata.seq_len * metadata.head_dim * 4 / 1024:.1f} KB")
+          f"{metadata.seq_len * metadata.head_dim * 2 / 1024:.1f} KB (float16 baseline)")
     print(f"Device: {device}, Epochs: {epochs}")
 
     if quick:

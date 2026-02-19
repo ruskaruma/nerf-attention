@@ -81,7 +81,7 @@ def run_multi_prompt_experiment(
         with open(kv_dir / 'metadata.json', 'w') as f:
             json.dump(metadata.to_dict(), f, indent=2)
 
-        del outputs
+        del outputs, past_kv
         torch.cuda.empty_cache()
 
         analysis = analyze_kv_cache(kv_dir, analysis_dir)

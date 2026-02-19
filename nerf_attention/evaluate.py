@@ -292,13 +292,13 @@ def generate_summary_figure(results: list[dict], output_dir: Path) -> None:
             config_k.setdefault(cn, []).append(r['final_cosine_mean'])
         else:
             config_v.setdefault(cn, []).append(r['final_cosine_mean'])
-    cfgs = sorted(set(list(config_k.keys()) + list(config_v.keys())))
+    cfgs = sorted(set(list(config_k.keys()) & set(config_v.keys())))
     if cfgs:
         x = np.arange(len(cfgs))
         width = 0.35
-        ax.bar(x - width/2, [np.mean(config_k.get(c, [0])) for c in cfgs],
+        ax.bar(x - width/2, [np.mean(config_k[c]) for c in cfgs],
                width, label='Keys', color='#3498db', alpha=0.8)
-        ax.bar(x + width/2, [np.mean(config_v.get(c, [0])) for c in cfgs],
+        ax.bar(x + width/2, [np.mean(config_v[c]) for c in cfgs],
                width, label='Values', color='#e74c3c', alpha=0.8)
         ax.set_xticks(x)
         ax.set_xticklabels(cfgs, fontsize=7, rotation=45, ha='right')
@@ -322,13 +322,17 @@ def generate_summary_figure(results: list[dict], output_dir: Path) -> None:
     ax = fig.add_subplot(gs[1, 2])
     ax.axis('off')
     best = max(results, key=lambda r: r['final_cosine_mean'])
-    best_compress = max(results, key=lambda r: r['compression_ratio']
-                        if r['final_cosine_mean'] > 0.9 else 0)
+    above_threshold = [r for r in results if r['final_cosine_mean'] > 0.9]
+    if above_threshold:
+        best_compress = max(above_threshold, key=lambda r: r['compression_ratio'])
+        compress_text = (f"Best compression (>0.9):\n  {best_compress['compression_ratio']:.1f}x\n"
+                         f"  CosSim={best_compress['final_cosine_mean']:.4f}")
+    else:
+        compress_text = "No config achieves >0.9 CosSim"
     text = (f"Key Findings\n{'─'*30}\n\n"
             f"Best fidelity:\n  CosSim={best['final_cosine_mean']:.4f}\n"
             f"  {best['config_name']}, {best['compression_ratio']:.1f}x\n\n"
-            f"Best compression (>0.9):\n  {best_compress['compression_ratio']:.1f}x\n"
-            f"  CosSim={best_compress['final_cosine_mean']:.4f}\n\n"
+            f"{compress_text}\n\n"
             f"Experiments: {len(results)}")
     ax.text(0.1, 0.9, text, transform=ax.transAxes, fontsize=10,
             verticalalignment='top', fontfamily='monospace',
