@@ -23,19 +23,22 @@ compute-bound.
 Keys have learnable positional structure from RoPE. Values don't — they encode
 token-specific content with no systematic relationship to sequence position.
 
+SIREN doesn't even compress at 2048 tokens — the medium config (164,992 float32
+params) is *larger* than the float16 KV cache (0.8x ratio = expansion).
+Compression only begins at ~4096 tokens (1.6x).
+
 **SVD dominates at every compression ratio with zero training:**
 
-| Compression | SVD Keys | SVD Values | SIREN Keys (1.6x) |
+| Compression | SVD Keys | SVD Values | SIREN Keys (0.8x) |
 |---|---|---|---|
 | 2x | 0.9745 | 0.9124 | 0.90 |
 | 4x | 0.9225 | 0.8032 | — |
 
-**SIREN is 38-62x slower than HBM reads** at every tested sequence length
+**SIREN is 76-125x slower than HBM reads** at every tested sequence length
 (512-4096 tokens). Both scale with length — no crossover at practical lengths.
 
 **Content invariant:** Keys span just 0.006 CosSim across fiction, code,
-conversational, and technical text. The K/V asymmetry is architecturally
-imposed by RoPE, not content-driven.
+conversational, and technical text. The K/V asymmetry is architectural (consistent with RoPE), not content-driven.
 
 See [FINDINGS.md](FINDINGS.md) for the full writeup.
 
@@ -80,3 +83,4 @@ published specs (3.35 TB/s bandwidth) — not measured on actual H100 hardware.
 - 4 of 8 KV heads sampled per layer in baseline experiments
 - Fixed 2000 epochs with no early stopping or convergence verification
 - No random seeds set — qualitative patterns are stable but exact numbers aren't reproducible
+- Prompt texts repeated 3-5x to fill context — inflates value quality more than keys (values lack position encoding, so repeated tokens = periodic signal)
