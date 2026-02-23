@@ -1,4 +1,4 @@
-"""Follow-up experiments: scaling, multi-prompt robustness, SVD baseline."""
+""" scaling, multi-prompt robustness, SVD baseline."""
 
 from nerf_attention.experiments.scaling import (
     run_scaling_experiment, plot_scaling_crossover, plot_scaling_quality,

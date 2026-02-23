@@ -23,7 +23,7 @@ compute-bound.
 Keys have learnable positional structure from RoPE. Values don't — they encode
 token-specific content with no systematic relationship to sequence position.
 
-SIREN doesn't even compress at 2048 tokens — the medium config (164,992 float32
+SIREN doesn't even compress at 2048 tokens, the medium config (164,992 float32
 params) is *larger* than the float16 KV cache (0.8x ratio = expansion).
 Compression only begins at ~4096 tokens (1.6x).
 
@@ -64,11 +64,11 @@ uv run python -m nerf_attention.evaluate
 ## Hardware
 
 All experiments ran locally on:
-- RTX 4060 (8GB VRAM) — Llama 3.1-8B fits at 4-bit quantization (~5GB)
+- RTX 4060 (8GB VRAM) with Llama 3.1-8B fits at 4-bit quantization (~5GB)
 - ~16GB system RAM
 
 H100 numbers referenced in scaling analysis are theoretical, computed from
-published specs (3.35 TB/s bandwidth) — not measured on actual H100 hardware.
+published specs (3.35 TB/s bandwidth), not measured on actual H100 hardware.
 
 ## Pipeline
 
@@ -79,8 +79,8 @@ published specs (3.35 TB/s bandwidth) — not measured on actual H100 hardware.
 
 ## Methodology Limitations
 
-- Quality measured by cosine similarity only — no perplexity or generation evaluation
+- Quality measured by cosine similarity only, no perplexity or generation evaluation
 - 4 of 8 KV heads sampled per layer in baseline experiments
 - Fixed 2000 epochs with no early stopping or convergence verification
-- No random seeds set — qualitative patterns are stable but exact numbers aren't reproducible
-- Prompt texts repeated 3-5x to fill context — inflates value quality more than keys (values lack position encoding, so repeated tokens = periodic signal)
+- No random seeds set: qualitative patterns are stable but exact numbers aren't reproducible
+- Prompt texts repeated 3-5x to fill contextm it inflates value quality more than keys (values lack position encoding, so repeated tokens = periodic signal)
